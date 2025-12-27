@@ -1,0 +1,16 @@
+{
+  "name": "opengl-project",
+  "version": "0.1.0",
+  "dependencies": [
+    "fmt",
+    "spdlog",
+    "magic-enum",
+    "sdl3",
+    "glad",
+    {
+      "name": "imgui",
+      "features": [ "sdl3-binding", "opengl3-binding", "docking-experimental" ]
+    },
+    "implot"
+  ]
+}
