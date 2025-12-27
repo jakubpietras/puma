@@ -172,6 +172,8 @@
     <ClInclude Include="src\Core\GLDebug.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\SDLWindow.h" />
+    <ClInclude Include="src\Puma\PumaParams.h" />
+    <ClInclude Include="src\Puma\Puma.h" />
     <ClInclude Include="src\Rendering\Buffer.h" />
     <ClInclude Include="src\Rendering\Framebuffer.h" />
     <ClInclude Include="src\Rendering\PerspectiveCamera.h" />

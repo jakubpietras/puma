@@ -1,11 +1,13 @@
 #pragma once
 #include "Core/Core.h"
-#include "armath.h"
+#include "kbmath.h"
+#include "Puma/PumaParams.h"
 
 namespace kb
 {
 	struct AppState
 	{
-		float Dummy = 0.f;
+		PumaParams Params;
+		float DirtyPuma = false;
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "Rendering/PerspectiveCamera.h"
-#include "armath.h"
+#include "kbmath.h"
 
 namespace kb
 {

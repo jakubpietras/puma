@@ -2,8 +2,13 @@
 
 namespace kb
 {
-	ViewportPanel::ViewportPanel(std::shared_ptr<kb::Framebuffer> framebuffer, const std::string& name)
-		: m_Framebuffer(framebuffer), m_Name(name), m_ViewportSize({0., 0.})
+	ViewportPanel::ViewportPanel(std::shared_ptr<kb::Framebuffer> framebuffer, std::shared_ptr< kb::CameraController> cameraController, const std::string& name)
+		: m_Framebuffer(framebuffer), m_Name(name), m_ViewportSize({0., 0.}), m_Camera(cameraController)
+	{ }
+
+	ViewportPanel::ViewportPanel(uint32_t width, uint32_t height, const std::string& name)
+		: m_Framebuffer(std::make_shared<kb::Framebuffer>(width, height)), m_Name(name), 
+		m_ViewportSize({ 0., 0. }), m_Camera(std::make_shared<CameraController>(45.0f, 1, 0.1f, 100.f, 5.f))
 	{ }
 
 	void ViewportPanel::Render()

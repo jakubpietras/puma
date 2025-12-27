@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <vector>
 #include <string>
-#include "armath.h"
+#include "kbmath.h"
 
 namespace kb
 {

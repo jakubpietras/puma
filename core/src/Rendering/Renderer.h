@@ -1,7 +1,7 @@
 #pragma once
 #include "VertexArray.h"
 #include "Shader.h"
-#include "armath.h"
+#include "kbmath.h"
 
 namespace kb
 {

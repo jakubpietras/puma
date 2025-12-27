@@ -8,16 +8,15 @@ namespace kb
 {
 	Application::Application()
 		: m_Window(1920, 1080),
-		m_Framebuffer(std::make_shared<Framebuffer>(400, 400)),
-		m_CamController(45.0f, 1, 0.1f, 100.f, 5.f),
-		m_State(),
-		m_Scene(std::make_shared<BaseScene>(m_State)),
-		m_ViewportPanels{}
+		m_State(), m_Scene(std::make_shared<BaseScene>(m_State))
 	{ 
 		m_UIController.Initialize(m_Window.GetHandle(), m_Window.GetContext());
-		auto panel = std::make_shared<ViewportPanel>(m_Framebuffer, "PUMA");
-		m_ViewportPanels.push_back(panel);
-		m_UIController.AddPanel(panel);
+		auto panel1 = std::make_shared<ViewportPanel>(400, 400, "Internal interpolation");
+		m_ViewportPanels.push_back(panel1);
+		m_UIController.AddPanel(panel1);
+		auto panel2 = std::make_shared<ViewportPanel>(400, 400, "Effector interpolation");
+		m_ViewportPanels.push_back(panel2);
+		m_UIController.AddPanel(panel2);
 		m_ConfigPanel = std::make_shared<ConfigPanel>(m_State);
 		m_UIController.AddPanel(m_ConfigPanel);
 		ShaderLib::Init();
@@ -74,7 +73,8 @@ namespace kb
 						e.type == SDL_EVENT_MOUSE_MOTION ||
 						e.type == SDL_EVENT_KEY_DOWN)
 					{
-						m_CamController.ProcessEvent(&e);
+						for (auto& vp : m_ViewportPanels)
+							vp->CamController()->ProcessEvent(&e);
 					}
 				}
 			}
@@ -86,7 +86,7 @@ namespace kb
 				{
 					auto newSize = vp->GetSize();
 					auto aspectRatio = newSize.x / newSize.y;
-					m_CamController.SetAspectRatio(aspectRatio);
+					vp->CamController()->SetAspectRatio(aspectRatio);
 					vp->ClearResizeState();
 				}
 			}
@@ -95,7 +95,8 @@ namespace kb
 
 			// RENDER
 			m_UIController.BeginFrame();
-			RenderScene();
+			for (auto& vp : m_ViewportPanels)
+				RenderScene(vp);
 			m_UIController.RenderPanels();
 			m_UIController.EndFrame();
 			m_Window.SwapBuffers();
@@ -126,15 +127,15 @@ namespace kb
 
 	}
 
-	void Application::RenderScene()
+	void Application::RenderScene(std::shared_ptr<ViewportPanel>& viewport)
 	{
-		m_Framebuffer->Bind();
+		viewport->Framebuffer()->Bind();
 
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
-		m_Scene->OnRender(m_CamController.GetCamera()->GetVP());
+		m_Scene->OnRender(viewport->CamController()->GetCamera()->GetVP());\
 
-		m_Framebuffer->Unbind();
+		viewport->Framebuffer()->Unbind();
 	}
 
 	void Application::ProcessStateChanges()

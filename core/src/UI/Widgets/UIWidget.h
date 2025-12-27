@@ -1,7 +1,7 @@
 #pragma once
 #include "magic_enum/magic_enum.hpp"
 #include "imgui.h"
-#include "armath.h"
+#include "kbmath.h"
 #include "Core/Core.h"
 
 namespace kb

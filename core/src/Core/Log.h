@@ -3,7 +3,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/fmt/ostr.h>
 #include <fmt/ostream.h>
-#include <armath.h>
+#include <kbmath.h>
 
 namespace kb
 {
