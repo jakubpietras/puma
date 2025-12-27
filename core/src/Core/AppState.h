@@ -7,7 +7,7 @@ namespace kb
 {
 	struct AppState
 	{
-		PumaParams Params;
-		float DirtyPuma = false;
+		PumaParams Params{};
+		PumaDirtyFlag DirtyPuma{};
 	};
 }
