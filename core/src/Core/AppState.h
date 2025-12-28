@@ -1,14 +1,14 @@
 #pragma once
 #include "Core/Core.h"
 #include "kbmath.h"
-#include "Puma/PumaParams.h"
+#include "Puma/PUMAStructs.h"
 
 namespace kb
 {
 	struct AppState
 	{
-		PumaParams Params{};
-		PumaDirtyFlag DirtyPuma{};
+		PUMAParams Params{};
+		PUMADirtyFlag DirtyPuma{};
 
 		// Simulation
 		float AnimationTotalTime = 1.0f;

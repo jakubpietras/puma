@@ -2,7 +2,7 @@
 #include "Scene/Scene.h"
 #include "Core/AppState.h"
 #include "Puma/PUMA.h"
-#include "Puma/Configuration.h"
+#include "Puma/PUMAStructs.h"
 
 namespace kb
 {

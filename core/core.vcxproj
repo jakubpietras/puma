@@ -150,7 +150,6 @@
     <ClCompile Include="src\Core\SDLWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Puma\PUMA.cpp" />
-    <ClCompile Include="src\Puma\PUMASolver.cpp" />
     <ClCompile Include="src\Rendering\Buffer.cpp" />
     <ClCompile Include="src\Rendering\Framebuffer.cpp" />
     <ClCompile Include="src\Rendering\MeshGenerator.cpp" />
@@ -175,10 +174,8 @@
     <ClInclude Include="src\Core\GLDebug.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\SDLWindow.h" />
-    <ClInclude Include="src\Puma\Configuration.h" />
-    <ClInclude Include="src\Puma\PumaParams.h" />
+    <ClInclude Include="src\Puma\PUMAStructs.h" />
     <ClInclude Include="src\Puma\PUMA.h" />
-    <ClInclude Include="src\Puma\PUMASolver.h" />
     <ClInclude Include="src\Rendering\Buffer.h" />
     <ClInclude Include="src\Rendering\Framebuffer.h" />
     <ClInclude Include="src\Rendering\MeshGenerator.h" />

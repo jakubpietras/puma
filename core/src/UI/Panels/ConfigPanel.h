@@ -1,7 +1,7 @@
 #pragma once
 #include "UI/UIPanel.h"
 #include "Core/AppState.h"
-#include "Puma/PumaParams.h"
+#include "Puma/PUMAStructs.h"
 
 namespace kb
 {

@@ -78,9 +78,6 @@
     <ClCompile Include="src\Puma\PUMA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Puma\PUMASolver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rendering\MeshGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -161,16 +158,10 @@
     <ClInclude Include="src\Scene\Views\BaseScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Puma\PumaParams.h">
+    <ClInclude Include="src\Puma\PUMAStructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Puma\PUMA.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Puma\Configuration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Puma\PUMASolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Rendering\MeshGenerator.h">

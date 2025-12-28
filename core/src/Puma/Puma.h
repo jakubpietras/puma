@@ -1,5 +1,5 @@
 #pragma once
-#include "Configuration.h"
+#include "PUMAStructs.h"
 #include "Rendering/VertexArray.h"
 
 namespace kb
@@ -29,13 +29,8 @@ namespace kb
 			{1.0f, 1.0f, 0.0f}	// arm 4 - yellow
 		};
 
-		std::vector<Arm> m_Arms;
 		std::vector<kbm::Mat4> m_BaseArmModelMtx, m_ArmModelMtx;
 		kbm::Mat4 m_EffectorModelMtx;
 		std::shared_ptr<VertexArray> m_BaseArmMesh;
-
-		Effector m_Effector;
-		
-		void UpdateModelMatrices();
 	};
 }
