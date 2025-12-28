@@ -7,6 +7,9 @@ namespace kbm
 	// => ROTATION MATRIX
 	Mat4 EulerZXZRotation(const Vec3& angles);
 	Mat4 EulerZXZRotation(float phi, float theta, float psi);
+	Mat4 RotationX(float angleDeg);
+	Mat4 RotationY(float angleDeg);
+	Mat4 RotationZ(float angleDeg);
 	Mat4 QuatRotation(const Quat& q);
 
 	// EULER => QUATERNION

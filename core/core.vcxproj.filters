@@ -183,8 +183,10 @@
     <None Include="src\Resources\Shaders\gizmo.vert" />
     <None Include="src\Resources\Shaders\grid.frag" />
     <None Include="src\Resources\Shaders\grid.vert" />
-    <None Include="src\Resources\Shaders\default.vert" />
-    <None Include="src\Resources\Shaders\default.frag" />
+    <None Include="src\Resources\Shaders\ambient.vert" />
+    <None Include="src\Resources\Shaders\ambient.frag" />
+    <None Include="src\Resources\Shaders\flat.vert" />
+    <None Include="src\Resources\Shaders\flat.frag" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\Resources\Fonts\jbmono.ttf" />

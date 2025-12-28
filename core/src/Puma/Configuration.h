@@ -13,15 +13,15 @@ namespace kb
 
 	struct Effector
 	{
-		kbm::Vec3 Origin;
-		kbm::Quat Rotation;
+		kbm::Vec3 p;
+		float a;
 	};
 
 	struct PUMAState
 	{
-		std::array<float, 5> a{};		// rotations
-		std::array<float, 5> p{};		// origin points
-		std::array<float, 4> l{};		// arm lengths
+		std::array<float, 5> a{};			// rotations
+		std::array<kbm::Vec3, 5> p{};		// origin points
+		std::array<float, 4> l{};			// arm lengths
 	};
 
 }

@@ -47,6 +47,21 @@ namespace kbm
 		return rot;
 	}
 
+	kbm::Mat4 RotationX(float angleDeg)
+	{
+		return EulerZXZRotation(0, angleDeg, 0);
+	}
+
+	kbm::Mat4 RotationY(float angleDeg)
+	{
+		return EulerZXZRotation(90.0f, angleDeg, -90.0f);
+	}
+
+	kbm::Mat4 RotationZ(float angleDeg)
+	{
+		return EulerZXZRotation(angleDeg, 0.0f, 0.0f);
+	}
+
 	// TODO: Kwaternion -> Macierz obrotu
 	Mat4 QuatRotation(const Quat& q)
 	{

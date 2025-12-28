@@ -10,3 +10,4 @@
 #include "geometry.h"
 #include "transformations.h"
 #include "solvers.h"
+#include "rotations.h"

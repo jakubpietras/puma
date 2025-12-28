@@ -40,7 +40,7 @@ namespace kb
 
 		// ===== Test
 		auto cyl = MeshGenerator::Cylinder(0.5f, 1.0f, 15);
-		auto shader = ShaderLib::Get("Default");
+		auto shader = ShaderLib::Get("Ambient");
 
 		// ==========
 
@@ -106,12 +106,6 @@ namespace kb
 			for (auto& vp : m_ViewportPanels)
 			{
 				RenderScene(vp);
-				// DEBUG
-				vp->Framebuffer()->Bind();
-				shader->SetMat4("u_VP", vp->CamController()->GetCamera()->GetVP());
-				Renderer::Submit(shader, cyl, GL_TRIANGLES);
-				vp->Framebuffer()->Unbind();
-				// ====
 			}
 			m_UIController.RenderPanels();
 			m_UIController.EndFrame();
