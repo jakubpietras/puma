@@ -9,5 +9,12 @@ namespace kb
 	{
 		PumaParams Params{};
 		PumaDirtyFlag DirtyPuma{};
+
+		// Simulation
+		float AnimationTotalTime = 1.0f;
+		float AnimationElapsedTime = 0.0f;
+		bool AnimationTotalTimeChanged = false;
+		bool AnimationStarted = false;
+		bool AnimationPaused = false;
 	};
 }

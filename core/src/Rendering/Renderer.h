@@ -14,6 +14,7 @@ namespace kb
 
 		static void Submit(const std::shared_ptr<Shader>& shader,
 			const std::shared_ptr<VertexArray>& vertexArray,
+			GLenum mode = GL_TRIANGLES,
 			const kbm::Mat4& model = kbm::Identity(),
 			uint32_t instanceCount = 1);
 		static void SubmitProcedural(const std::shared_ptr<Shader>& shader,

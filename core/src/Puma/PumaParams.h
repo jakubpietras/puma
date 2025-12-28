@@ -16,7 +16,7 @@ namespace kb
 		bool StartPos = false, EndPos = false;
 		bool EulerStart = false, EulerEnd = false;
 		bool QuatStart = false, QuatEnd = false;
-		bool Mesh = false;
+		bool Lengths = false;
 		bool Check() const { return StartPos || EndPos || EulerStart || EulerEnd || QuatStart || QuatEnd; }
 	};
 }

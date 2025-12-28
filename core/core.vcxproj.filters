@@ -75,6 +75,15 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Puma\PUMA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Puma\PUMASolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\MeshGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Application.h">
@@ -155,11 +164,29 @@
     <ClInclude Include="src\Puma\PumaParams.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Puma\Puma.h">
+    <ClInclude Include="src\Puma\PUMA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Puma\Configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Puma\PUMASolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\MeshGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="src\Resources\Shaders\gizmo.frag" />
+    <None Include="src\Resources\Shaders\gizmo.vert" />
+    <None Include="src\Resources\Shaders\grid.frag" />
+    <None Include="src\Resources\Shaders\grid.vert" />
+    <None Include="src\Resources\Shaders\default.vert" />
+    <None Include="src\Resources\Shaders\default.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\Resources\Fonts\jbmono.ttf" />
   </ItemGroup>
 </Project>

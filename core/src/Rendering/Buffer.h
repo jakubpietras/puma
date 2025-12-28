@@ -98,8 +98,6 @@ namespace kb
 		uint32_t m_Stride = 0;
 	};
 
-	// --- BUFORY W£AŒCIWE ---
-
 	class VertexBuffer
 	{
 	public:
@@ -143,6 +141,10 @@ namespace kb
 	{
 	public:
 		IndexBuffer(const uint32_t* indices, uint32_t count);
+		template<typename T>
+		IndexBuffer(const std::vector<T>& data)
+			: IndexBuffer(data.data(), static_cast<uint32_t>(data.size()))
+		{ }
 		~IndexBuffer();
 
 		void Bind() const;

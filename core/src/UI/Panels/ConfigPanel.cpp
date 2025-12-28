@@ -18,6 +18,7 @@ namespace kb
 		RenderQuaternionControl();
 		RenderEulerControl();
 		RenderLengthsControl();
+		RenderAnimationControl();
 	}
 
 	void ConfigPanel::RenderPositionControl()
@@ -68,22 +69,39 @@ namespace kb
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
 		if (ImGui::DragFloat("##l1length", &m_State.Params.Length1, 0.1f, 0.0f, 10.0f))
-			m_State.DirtyPuma.Mesh = true;
+			m_State.DirtyPuma.Lengths = true;
 		ImGui::PopItemWidth();
 
 		ImGui::Text("L3: ");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
 		if (ImGui::DragFloat("##l3length", &m_State.Params.Length3, 0.1f, 0.0f, 10.0f))
-			m_State.DirtyPuma.Mesh = true;
+			m_State.DirtyPuma.Lengths = true;
 		ImGui::PopItemWidth();
 
 		ImGui::Text("L4: ");
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
 		if (ImGui::DragFloat("##l4length", &m_State.Params.Length4, 0.1f, 0.0f, 10.0f))
-			m_State.DirtyPuma.Mesh = true;
+			m_State.DirtyPuma.Lengths = true;
 		ImGui::PopItemWidth();
+
+		ImGui::End();
+	}
+
+	void ConfigPanel::RenderAnimationControl()
+	{
+		ImGui::Begin("Animation");
+
+		if (ImGui::Button(fmt::format("{}", m_State.AnimationStarted ? "Stop" : "Start").c_str()))
+		{
+			m_State.AnimationStarted = !m_State.AnimationStarted;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button(fmt::format("{}", m_State.AnimationPaused ? "Play" : "Pause").c_str()))
+		{
+			m_State.AnimationPaused = !m_State.AnimationPaused;
+		}
 
 		ImGui::End();
 	}

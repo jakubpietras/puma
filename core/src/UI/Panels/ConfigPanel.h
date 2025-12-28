@@ -18,5 +18,6 @@ namespace kb
 		void RenderQuaternionControl();
 		void RenderEulerControl();
 		void RenderLengthsControl();
+		void RenderAnimationControl();
 	};
 }

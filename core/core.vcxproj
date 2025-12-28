@@ -149,8 +149,11 @@
     <ClCompile Include="src\Core\Log.cpp" />
     <ClCompile Include="src\Core\SDLWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Puma\PUMA.cpp" />
+    <ClCompile Include="src\Puma\PUMASolver.cpp" />
     <ClCompile Include="src\Rendering\Buffer.cpp" />
     <ClCompile Include="src\Rendering\Framebuffer.cpp" />
+    <ClCompile Include="src\Rendering\MeshGenerator.cpp" />
     <ClCompile Include="src\Rendering\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Rendering\RenderCommand.cpp" />
     <ClCompile Include="src\Rendering\Renderer.cpp" />
@@ -172,10 +175,13 @@
     <ClInclude Include="src\Core\GLDebug.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\SDLWindow.h" />
+    <ClInclude Include="src\Puma\Configuration.h" />
     <ClInclude Include="src\Puma\PumaParams.h" />
-    <ClInclude Include="src\Puma\Puma.h" />
+    <ClInclude Include="src\Puma\PUMA.h" />
+    <ClInclude Include="src\Puma\PUMASolver.h" />
     <ClInclude Include="src\Rendering\Buffer.h" />
     <ClInclude Include="src\Rendering\Framebuffer.h" />
+    <ClInclude Include="src\Rendering\MeshGenerator.h" />
     <ClInclude Include="src\Rendering\PerspectiveCamera.h" />
     <ClInclude Include="src\Rendering\RenderCommand.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
@@ -201,6 +207,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="src\Resources\Shaders\default.frag" />
+    <None Include="src\Resources\Shaders\default.vert" />
+    <None Include="src\Resources\Shaders\gizmo.frag" />
+    <None Include="src\Resources\Shaders\gizmo.vert" />
+    <None Include="src\Resources\Shaders\grid.frag" />
+    <None Include="src\Resources\Shaders\grid.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\Resources\Fonts\jbmono.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

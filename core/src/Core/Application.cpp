@@ -3,6 +3,8 @@
 #include "Rendering/Shader.h"
 #include "Rendering/RenderCommand.h"
 #include "rotations.h"
+#include "Rendering/MeshGenerator.h"
+#include "Rendering/Renderer.h"
 
 namespace kb
 {
@@ -35,6 +37,12 @@ namespace kb
 			currentCounter = SDL_GetPerformanceCounter(),
 			counterElapsed = currentCounter - lastCounter;
 		float deltaTime = 0.f;
+
+		// ===== Test
+		auto cyl = MeshGenerator::Cylinder(0.5f, 1.0f, 15);
+		auto shader = ShaderLib::Get("Default");
+
+		// ==========
 
 		// TODO: Main loop
 		while (isRunning)
@@ -96,7 +104,15 @@ namespace kb
 			// RENDER
 			m_UIController.BeginFrame();
 			for (auto& vp : m_ViewportPanels)
+			{
 				RenderScene(vp);
+				// DEBUG
+				vp->Framebuffer()->Bind();
+				shader->SetMat4("u_VP", vp->CamController()->GetCamera()->GetVP());
+				Renderer::Submit(shader, cyl, GL_TRIANGLES);
+				vp->Framebuffer()->Unbind();
+				// ====
+			}
 			m_UIController.RenderPanels();
 			m_UIController.EndFrame();
 			m_Window.SwapBuffers();
@@ -133,7 +149,7 @@ namespace kb
 
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
-		m_Scene->OnRender(viewport->CamController()->GetCamera()->GetVP());\
+		m_Scene->OnRender(viewport->CamController()->GetCamera()->GetVP());
 
 		viewport->Framebuffer()->Unbind();
 	}

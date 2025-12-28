@@ -180,6 +180,9 @@ namespace kb
 		s_Shaders["Gizmo"] = std::make_shared<Shader>(
 			"src/Resources/Shaders/gizmo.vert",
 			"src/Resources/Shaders/gizmo.frag");
+		s_Shaders["Default"] = std::make_shared<Shader>(
+			"src/Resources/Shaders/default.vert",
+			"src/Resources/Shaders/default.frag");
 		P_INFO("Shaders initialized.");
 	}
 

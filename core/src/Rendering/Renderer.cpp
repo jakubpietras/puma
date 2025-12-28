@@ -21,20 +21,21 @@ namespace kb
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader,
 		const std::shared_ptr<VertexArray>& vertexArray,
+		GLenum mode /*= GL_TRIANGLES*/,
 		const kbm::Mat4& model /*= am::Identity()*/,
 		uint32_t instanceCount /*= 1*/)
 	{
 		shader->Use();
 		shader->SetMat4("u_Model", model);
 		if (vertexArray->GetIndexBuffer())
-			RenderCommand::DrawIndexed(vertexArray, instanceCount);
+			RenderCommand::DrawIndexed(vertexArray, mode, instanceCount);
 		else
 		{
 			const auto& vertexBuffers = vertexArray->GetVertexBuffers();
 			if (!vertexBuffers.empty())
 			{
 				uint32_t vertexCount = vertexBuffers[0]->GetVertexCount();
-				RenderCommand::Draw(vertexArray, vertexCount, instanceCount);
+				RenderCommand::Draw(vertexArray, vertexCount, mode, instanceCount);
 			}
 			else
 				P_WARN("Renderer::Submit - VAO has no buffers!");
