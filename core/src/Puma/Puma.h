@@ -11,6 +11,7 @@ namespace kb
 		PUMA(PUMAState& initState);
 		void Update(PUMAState& newState);
 		void Render(const kbm::Mat4& viewProjection);
+		PUMAState& GetCurrentState() { return m_CurrentState; }
 
 	private:
 		const std::vector<kbm::Vec3> m_RotationAxes = 
@@ -29,8 +30,12 @@ namespace kb
 			{1.0f, 1.0f, 0.0f}	// arm 4 - yellow
 		};
 
-		std::vector<kbm::Mat4> m_BaseArmModelMtx, m_ArmModelMtx;
-		kbm::Mat4 m_EffectorModelMtx;
 		std::shared_ptr<VertexArray> m_BaseArmMesh;
+		std::vector<kbm::Mat4> m_BaseArmModelMtx, m_ArmModelMtx;
+		PUMAState m_CurrentState;
+		kbm::Mat4 m_EffectorModelMtx;
+	
+		void UpdateConfiguration(PUMAState& s);
+		void UpdateMesh(PUMAState& s);
 	};
 }

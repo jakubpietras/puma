@@ -13,10 +13,15 @@ namespace kb
 
 		void OnUpdate(float dt) override;
 		void OnRender(const kbm::Mat4& viewProjection) override;
+		void OnStateChange(AppState& state);
+
+		void RenderParamPUMA(const kbm::Mat4& viewProjection);
+		void RenderEffectorPUMA(const kbm::Mat4& viewProjection);
 	private:
 		const AppState& m_State;
-		PUMAState m_PumaState, m_PumaPrevState;
-		PUMA m_PUMA;
+		PUMAState m_ParamPUMAState, m_ParamPUMAPrevState;
+		PUMAState m_EffectorPUMAState, m_EffectorPUMAPrevState;
+		PUMA m_ParamPUMA, m_EffectorPUMA;
 
 		void RenderGrid(const kbm::Mat4& viewProjection);
 	};

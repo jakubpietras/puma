@@ -149,7 +149,9 @@
     <ClCompile Include="src\Core\Log.cpp" />
     <ClCompile Include="src\Core\SDLWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Puma\IKSolver.cpp" />
     <ClCompile Include="src\Puma\PUMA.cpp" />
+    <ClCompile Include="src\Puma\PUMAEffectorSimulator.cpp" />
     <ClCompile Include="src\Rendering\Buffer.cpp" />
     <ClCompile Include="src\Rendering\Framebuffer.cpp" />
     <ClCompile Include="src\Rendering\MeshGenerator.cpp" />
@@ -174,6 +176,8 @@
     <ClInclude Include="src\Core\GLDebug.h" />
     <ClInclude Include="src\Core\Log.h" />
     <ClInclude Include="src\Core\SDLWindow.h" />
+    <ClInclude Include="src\Puma\IKSolver.h" />
+    <ClInclude Include="src\Puma\PUMAEffectorSimulator.h" />
     <ClInclude Include="src\Puma\PUMAStructs.h" />
     <ClInclude Include="src\Puma\PUMA.h" />
     <ClInclude Include="src\Rendering\Buffer.h" />

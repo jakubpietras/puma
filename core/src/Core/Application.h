@@ -21,17 +21,16 @@ namespace kb
 	private:
 		SDLWindow m_Window;
 		ImGuiController m_UIController;
-		//CameraController m_CamController;
 		AppState m_State;
 
-		//std::shared_ptr<Framebuffer> m_Framebuffer;
 		std::shared_ptr<ConfigPanel> m_ConfigPanel;
 		std::shared_ptr<BaseScene> m_Scene;
 		bool m_IsCameraRotating = false;
 		std::vector<std::shared_ptr<ViewportPanel>> m_ViewportPanels;
 
 		void OnEvent(const SDL_Event& e);
-		void RenderScene(std::shared_ptr<ViewportPanel>& viewport);
-		void ProcessStateChanges();
+		//void RenderScene(std::shared_ptr<ViewportPanel>& viewport);
+		void RenderSceneParamPUMA(std::shared_ptr<ViewportPanel>& viewport);
+		void RenderSceneEffectorPUMA(std::shared_ptr<ViewportPanel>& viewport);
 	};
 }

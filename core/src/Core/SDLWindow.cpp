@@ -20,7 +20,7 @@ namespace kb
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG); // for debugging
 
-		m_WHandle = SDL_CreateWindow("PUSN", width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		m_WHandle = SDL_CreateWindow("PUMA", width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 		if (!m_WHandle) {
 			P_ERROR("Failed to create a window: {0}", SDL_GetError());
 			return;

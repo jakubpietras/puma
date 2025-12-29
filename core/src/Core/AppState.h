@@ -8,7 +8,7 @@ namespace kb
 	struct AppState
 	{
 		PUMAParams Params{};
-		PUMADirtyFlag DirtyPuma{};
+		PUMADirtyFlag DirtyPUMA{};
 
 		// Simulation
 		float AnimationTotalTime = 1.0f;

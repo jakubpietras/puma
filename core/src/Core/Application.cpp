@@ -24,9 +24,7 @@ namespace kb
 		ShaderLib::Init();
 	}
 
-	Application::~Application()
-	{
-	}
+	Application::~Application() { }
 
 	void Application::Run()
 	{
@@ -37,12 +35,6 @@ namespace kb
 			currentCounter = SDL_GetPerformanceCounter(),
 			counterElapsed = currentCounter - lastCounter;
 		float deltaTime = 0.f;
-
-		// ===== Test
-		auto cyl = MeshGenerator::Cylinder(0.5f, 1.0f, 15);
-		auto shader = ShaderLib::Get("Ambient");
-
-		// ==========
 
 		// TODO: Main loop
 		while (isRunning)
@@ -98,15 +90,13 @@ namespace kb
 					vp->ClearResizeState();
 				}
 			}
-			ProcessStateChanges();
+			m_Scene->OnStateChange(m_State);
 			m_Scene->OnUpdate(deltaTime);
 
 			// RENDER
 			m_UIController.BeginFrame();
-			for (auto& vp : m_ViewportPanels)
-			{
-				RenderScene(vp);
-			}
+			RenderSceneParamPUMA(m_ViewportPanels[0]);
+			RenderSceneEffectorPUMA(m_ViewportPanels[1]);
 			m_UIController.RenderPanels();
 			m_UIController.EndFrame();
 			m_Window.SwapBuffers();
@@ -137,19 +127,25 @@ namespace kb
 
 	}
 
-	void Application::RenderScene(std::shared_ptr<ViewportPanel>& viewport)
+	void Application::RenderSceneParamPUMA(std::shared_ptr<ViewportPanel>& viewport)
 	{
 		viewport->Framebuffer()->Bind();
 
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
-		m_Scene->OnRender(viewport->CamController()->GetCamera()->GetVP());
+		m_Scene->RenderParamPUMA(viewport->CamController()->GetCamera()->GetVP());
 
 		viewport->Framebuffer()->Unbind();
 	}
 
-	void Application::ProcessStateChanges()
+	void Application::RenderSceneEffectorPUMA(std::shared_ptr<ViewportPanel>& viewport)
 	{
-		
+		viewport->Framebuffer()->Bind();
+
+		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
+		RenderCommand::Clear();
+		m_Scene->RenderEffectorPUMA(viewport->CamController()->GetCamera()->GetVP());
+
+		viewport->Framebuffer()->Unbind();
 	}
 }
