@@ -9,7 +9,7 @@ namespace kb
 		kbm::Vec3 EffStartPos, EffEndPos;	// effector's position
 		kbm::Vec3 EulerStart, EulerEnd;		// effector's local rotation (euler)
 		kbm::Quat QuatStart, QuatEnd;		// effector's local rotation (quaternion)
-		float Length1 = 1.0f, Length3 = 1.0f, Length4 = 1.0f;
+		float Length1 = 3.0f, Length3 = 2.0f, Length4 = 0.5f;
 	};
 
 	// PUMAState holds a full configuration of the robot
@@ -27,6 +27,9 @@ namespace kb
 		bool EulerStart = false, EulerEnd = false;
 		bool QuatStart = false, QuatEnd = false;
 		bool Lengths = false;
-		bool Check() const { return StartPos || EndPos || EulerStart || EulerEnd || QuatStart || QuatEnd; }
+		bool Check() const { return StartPos || EndPos || EulerStart || EulerEnd || QuatStart || QuatEnd || Lengths; }
+		void Clear() {
+			StartPos = EndPos = EulerStart = EulerEnd = QuatStart = QuatEnd = Lengths = false;
+		}
 	};
 }

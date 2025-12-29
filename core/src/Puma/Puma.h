@@ -32,5 +32,9 @@ namespace kb
 		std::vector<kbm::Mat4> m_BaseArmModelMtx, m_ArmModelMtx;
 		kbm::Mat4 m_EffectorModelMtx;
 		std::shared_ptr<VertexArray> m_BaseArmMesh;
+
+		void UpdateConfiguration(PUMAState& s);
+		void UpdateMesh(PUMAState& s);
+
 	};
 }

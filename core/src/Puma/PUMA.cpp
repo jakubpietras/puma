@@ -26,20 +26,8 @@ namespace kb
 
 	void PUMA::Update(PUMAState& s)
 	{
-		m_ArmModelMtx[0] = kbm::RotationY(s.a[0]);
-		m_ArmModelMtx[1] = m_ArmModelMtx[0]
-			* kbm::TranslationMatrix(0.0f, s.l[0], 0.0f)
-			* kbm::RotationZ(s.a[1]);
-		m_ArmModelMtx[2] = m_ArmModelMtx[1]
-			* kbm::TranslationMatrix(s.l[1], 0.0f, 0.0f)
-			* kbm::RotationZ(s.a[2]);
-		m_ArmModelMtx[3] = m_ArmModelMtx[2]
-			* kbm::TranslationMatrix(0.0f, -s.l[2], 0.0f)
-			* kbm::RotationY(s.a[3]);
-		m_EffectorModelMtx = m_ArmModelMtx[3]
-			* kbm::TranslationMatrix(s.l[3] + 0.01f, 0.0f, 0.0f)
-			* kbm::RotationX(s.a[4])
-			* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f);
+		UpdateConfiguration(s);
+		UpdateMesh(s);
 	}
 
 	void PUMA::Render(const kbm::Mat4& viewProjection)
@@ -59,4 +47,36 @@ namespace kb
 		Renderer::SubmitProcedural(shader, 6, GL_LINES);
 		RenderCommand::SetLineThickness(1.0f);
 	}
+
+	void PUMA::UpdateConfiguration(PUMAState& s)
+	{
+		m_ArmModelMtx[0] = kbm::RotationY(s.a[0]);
+		m_ArmModelMtx[1] = m_ArmModelMtx[0]
+			* kbm::TranslationMatrix(0.0f, s.l[0], 0.0f)
+			* kbm::RotationZ(s.a[1]);
+		m_ArmModelMtx[2] = m_ArmModelMtx[1]
+			* kbm::TranslationMatrix(s.l[1], 0.0f, 0.0f)
+			* kbm::RotationZ(s.a[2]);
+		m_ArmModelMtx[3] = m_ArmModelMtx[2]
+			* kbm::TranslationMatrix(0.0f, -s.l[2], 0.0f)
+			* kbm::RotationY(s.a[3]);
+		m_EffectorModelMtx = m_ArmModelMtx[3]
+			* kbm::TranslationMatrix(s.l[3] + 0.01f, 0.0f, 0.0f)
+			* kbm::RotationX(s.a[4])
+			* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f);
+	}
+
+	void PUMA::UpdateMesh(PUMAState& s)
+	{
+		m_BaseArmModelMtx = {
+			kbm::ScaleMatrix(1.0f, s.l[0], 1.0f),	// 1. arm
+			kbm::EulerZXZRotation(-90.0f, 0.0f, 0.0f)
+			* kbm::ScaleMatrix(1.0f, s.l[1], 1.0f),	// 2. arm
+			kbm::EulerZXZRotation(180.0f, 0.0f, 0.0f)
+			* kbm::ScaleMatrix(1.0f, s.l[2], 1.0f),	// 3. arm
+			kbm::EulerZXZRotation(-90.0f, 0.0f, 0.0f)
+			* kbm::ScaleMatrix(1.0f, s.l[3], 1.0f)	// 4. arm
+		};
+	}
+
 }

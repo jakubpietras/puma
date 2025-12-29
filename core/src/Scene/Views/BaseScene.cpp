@@ -3,6 +3,7 @@
 #include "Rendering/RenderCommand.h"
 #include "Rendering/Renderer.h"
 #include "rotations.h"
+#include "Puma/IKSolver.h"
 
 namespace m = kbm;
 
@@ -10,7 +11,11 @@ namespace kb
 {
 	BaseScene::BaseScene(const AppState& appstate)
 		: m_State(appstate),
-		m_PumaState(PUMAState{ {30.0f, 0.0f, 0.0f, 30.0f, 10.0f}, {kbm::Vec3{0,0,0},kbm::Vec3{0,2,0},kbm::Vec3{3,2,0},kbm::Vec3{3,1,0},kbm::Vec3{3.5,1,0}}, { 2.0f, 3.0f, 1.0f, 0.5f } }),
+		m_PumaState(
+			IKSolver::Compute(
+				appstate.Params.EffStartPos, 
+				EulerZXZRotation(appstate.Params.EulerStart), 
+				{appstate.Params.Length1, appstate.Params.Length3, appstate.Params.Length4})),
 		m_PumaPrevState(m_PumaState),
 		m_PUMA(m_PumaState)
 	{ }
@@ -24,6 +29,16 @@ namespace kb
 	{
 		RenderGrid(viewProjection);
 		m_PUMA.Render(viewProjection);
+	}
+
+	void BaseScene::OnStateChange(PUMAParams& p, PUMADirtyFlag& df)
+	{
+		if (df.Check())
+		{
+			auto newState = IKSolver::Compute(p.EffStartPos, EulerZXZRotation(p.EulerStart), { p.Length1, p.Length3, p.Length4 });
+			m_PUMA.Update(newState);
+			df.Clear();
+		}
 	}
 
 	void BaseScene::RenderGrid(const m::Mat4& viewProjection)

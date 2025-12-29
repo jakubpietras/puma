@@ -99,6 +99,7 @@ namespace kb
 				}
 			}
 			ProcessStateChanges();
+			m_Scene->OnStateChange(m_State.Params, m_State.DirtyPuma);
 			m_Scene->OnUpdate(deltaTime);
 
 			// RENDER

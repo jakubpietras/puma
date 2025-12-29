@@ -13,6 +13,7 @@ namespace kb
 
 		void OnUpdate(float dt) override;
 		void OnRender(const kbm::Mat4& viewProjection) override;
+		void OnStateChange(PUMAParams& p, PUMADirtyFlag& df);
 	private:
 		const AppState& m_State;
 		PUMAState m_PumaState, m_PumaPrevState;
