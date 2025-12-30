@@ -1,4 +1,5 @@
 #include "IKSolver.h"
+#include <numbers>
 
 namespace kb
 {
@@ -13,17 +14,48 @@ namespace kb
 		// ==============
 
 		PUMAState s;
+		auto x5 = kbm::Vec3(rotation * kbm::Vec4{ 1.0f, 0.0f, 0.0f, 0.f });
+		auto z5 = kbm::Vec3(rotation * kbm::Vec4{ 0.0f, 0.0f, 1.0f, 0.f });
 
+		auto p5 = pos;
+		auto p0 = kbm::Vec3{ 0.f, 0.f, 0.f };
+		auto p1 = p0;
+		auto p2 = p0 + kbm::Vec3{ 0.f, armLengths[0], 0.f };
+		auto p4 = p5 - armLengths[2] * x5;
 
-		// return s;
-		return debug;
+		auto n024 = kbm::Normalize(kbm::Cross(p4 - p0, p2 - p0));
+		auto y4 = kbm::Normalize(kbm::Cross(n024, x5));
+		// todo: handle edge cases
+		auto p3 = p4 + armLengths[1] * y4;
+
+		// angles
+		auto halfPi = static_cast<float>(std::numbers::pi / 2);
+		auto a1 = static_cast<float>(atan2(p4.z, p4.x));
+		auto a2 = SignedAngle(p2 - p0, p3 - p2, n024);
+		auto q2 = kbm::Length(p3 - p2);
+		auto a3 = SignedAngle(p3 - p2, p4 - p3, n024);
+		auto a4 = -(SignedAngle(n024, p5-p4, p4-p3) + halfPi);
+		auto a5 = SignedAngle(p3 - p4, z5, p5-p4);
+
+		s.a = { kbm::Degrees(a1), kbm::Degrees(a2), kbm::Degrees(a3), kbm::Degrees(a4), kbm::Degrees(a5) };
+		s.l = { armLengths[0], q2, armLengths[1], armLengths[2] };
+		s.p = { p1, p2, p3, p4, p5 };
+		return s;
 	}
 
 	float IKSolver::Angle(kbm::Vec3 v, kbm::Vec3 w)
 	{
 		auto dot = kbm::Dot(v, w);
 		auto denom = kbm::Length(v) * kbm::Length(w);
-		return dot / denom;
+		return acos(dot / denom);
+	}
+
+	float IKSolver::SignedAngle(kbm::Vec3 a, kbm::Vec3 b, kbm::Vec3 rotAxis)
+	{
+		return std::atan2(
+			kbm::Dot(kbm::Cross(a, b), kbm::Normalize(rotAxis)),
+			kbm::Dot(a, b)
+		);
 	}
 
 	//kb::PUMAState BaseScene::ComputeIK(kbm::Vec3 effPos, kbm::Mat4 effRot)
