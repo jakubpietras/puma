@@ -105,15 +105,20 @@ namespace kb
 		ImGui::Begin("Animation");
 		{
 			kb::ScopedDisable disable(m_State.AnimationStarted);
-			if (ImGui::DragFloat("Duration", &m_State.AnimationTotalTime, 0.1f, 0.1f, 60.0f))
+			ImGui::Text("Duration: ");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(80.0f);
+			if (ImGui::DragFloat("##Duration", &m_State.AnimationTotalTime, 0.1f, 0.1f, 60.0f))
 			{
 				m_State.AnimationTotalTimeChanged = true;
 			}
 		}
+		ImGui::SameLine();
 		if (ImGui::Button(fmt::format("{}", m_State.AnimationStarted ? "Stop" : "Start").c_str()))
 		{
 			m_State.AnimationElapsedTime = 0.0f;
 			m_State.AnimationStarted = !m_State.AnimationStarted;
+			m_State.AnimationPaused = false;
 			m_State.ShouldResetPUMA = true;
 		}
 		ImGui::SameLine();
@@ -124,17 +129,20 @@ namespace kb
 				m_State.AnimationPaused = !m_State.AnimationPaused;
 			}
 		}
-
 		if (m_State.AnimationStarted)
 		{
 			ImGui::SameLine();
 			if (m_State.AnimationPaused)
-				UIWidget::TextColored("Paused", ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
+			{
+				if (m_State.AnimationElapsedTime >= m_State.AnimationTotalTime)
+					UIWidget::TextColored("Finished", ImVec4(0.52f, 0.66f, 0.54f, 1.f));
+				else
+					UIWidget::TextColored("Paused", ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+			}
 			else
-				UIWidget::TextColored("Running...", ImVec4(0.52f, 0.66f, 0.54f, 1.f));
+				UIWidget::TextColored("Running...", ImVec4(0.0f, 0.0f, 1.0f, 1.f));
 		}
-		
-		ImGui::Text("Progress:");
+		ImGui::SameLine();
 		float fraction = (m_State.AnimationTotalTime > 0.0f) ? m_State.AnimationElapsedTime / m_State.AnimationTotalTime : 0.0f;
 		ImGui::ProgressBar(fraction, ImVec2(-1.0f, 0.0f));
 		

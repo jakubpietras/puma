@@ -9,7 +9,7 @@ namespace m = kbm;
 
 namespace kb
 {
-	BaseScene::BaseScene(const AppState& appstate)
+	BaseScene::BaseScene(AppState& appstate)
 		: m_State(appstate),
 		m_PumaState(
 			IKSolver::Compute(
@@ -23,7 +23,7 @@ namespace kb
 
 	void BaseScene::OnUpdate(float dt)
 	{
-		
+		ProcessAnimation(dt);
 	}
 
 	void BaseScene::OnRender(const m::Mat4& viewProjection, const kbm::Vec3& cameraPos)
@@ -46,6 +46,18 @@ namespace kb
 			m_PUMA.Update(newState);
 			df.Clear();
 		}
+	}
+
+	void BaseScene::ProcessAnimation(float dt)
+	{
+		if (!m_State.AnimationStarted)
+		{
+			return;
+		}
+		if (!m_State.AnimationPaused)
+			m_State.AnimationElapsedTime += dt;
+		if (m_State.AnimationElapsedTime >= m_State.AnimationTotalTime)
+			m_State.AnimationPaused = true;
 	}
 
 	void BaseScene::RenderGrid(const m::Mat4& viewProjection)
