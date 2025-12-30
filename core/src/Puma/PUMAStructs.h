@@ -6,7 +6,7 @@ namespace kb
 	// PUMAParams is for UI controls
 	struct PUMAParams
 	{
-		kbm::Vec3 EffStartPos{5.f, 1.5f, 1.f}, EffEndPos;	// effector's position
+		kbm::Vec3 EffStartPos{ 5.f, 1.5f, 1.f }, EffEndPos{ 6.f, 1.3f, 0.f };	// effector's position
 		kbm::Vec3 EulerStart, EulerEnd;		// effector's local rotation (euler)
 		kbm::Quat QuatStart, QuatEnd;		// effector's local rotation (quaternion)
 		float Length1 = 3.0f, Length3 = 2.0f, Length4 = 0.5f;

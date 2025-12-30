@@ -18,7 +18,9 @@ namespace kb
 		const AppState& m_State;
 		PUMAState m_PumaState, m_PumaPrevState;
 		PUMA m_PUMA;
+		kbm::Mat4 m_EffectorEndPosModelMtx;
 
 		void RenderGrid(const kbm::Mat4& viewProjection);
+		void RenderGizmo(const kbm::Mat4& model, const kbm::Mat4& viewProjection);
 	};
 }
