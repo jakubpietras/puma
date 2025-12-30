@@ -16,5 +16,6 @@ namespace kb
 		bool AnimationTotalTimeChanged = false;
 		bool AnimationStarted = false;
 		bool AnimationPaused = false;
+		bool ShouldResetPUMA = false;
 	};
 }
