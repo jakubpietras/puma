@@ -9,6 +9,6 @@ namespace kb
 	public:
 		virtual ~Scene() = default;
 		virtual void OnUpdate(float dt) = 0;
-		virtual void OnRender(const kbm::Mat4& viewProjection) = 0;
+		virtual void OnRender(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos = {}) = 0;
 	};
 }

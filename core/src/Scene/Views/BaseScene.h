@@ -12,7 +12,7 @@ namespace kb
 		BaseScene(const AppState& appstate);
 
 		void OnUpdate(float dt) override;
-		void OnRender(const kbm::Mat4& viewProjection) override;
+		void OnRender(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos = {}) override;
 		void OnStateChange(PUMAParams& p, PUMADirtyFlag& df);
 	private:
 		const AppState& m_State;

@@ -25,10 +25,10 @@ namespace kb
 		
 	}
 
-	void BaseScene::OnRender(const m::Mat4& viewProjection)
+	void BaseScene::OnRender(const m::Mat4& viewProjection, const kbm::Vec3& cameraPos)
 	{
 		RenderGrid(viewProjection);
-		m_PUMA.Render(viewProjection);
+		m_PUMA.Render(viewProjection, {1.0f, 5.0f, 1.0f});
 	}
 
 	void BaseScene::OnStateChange(PUMAParams& p, PUMADirtyFlag& df)

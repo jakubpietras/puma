@@ -188,6 +188,7 @@
     <ClInclude Include="src\Rendering\stb_image.h" />
     <ClInclude Include="src\Rendering\Texture.h" />
     <ClInclude Include="src\Rendering\VertexArray.h" />
+    <ClInclude Include="src\Rendering\VertexContainers.h" />
     <ClInclude Include="src\Scene\CameraController.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\Views\BaseScene.h" />
@@ -208,8 +209,8 @@
     <None Include="imgui.ini" />
     <None Include="src\Resources\Shaders\ambient.frag" />
     <None Include="src\Resources\Shaders\ambient.vert" />
-    <None Include="src\Resources\Shaders\flat.frag" />
-    <None Include="src\Resources\Shaders\flat.vert" />
+    <None Include="src\Resources\Shaders\phong.frag" />
+    <None Include="src\Resources\Shaders\phong.vert" />
     <None Include="src\Resources\Shaders\gizmo.frag" />
     <None Include="src\Resources\Shaders\gizmo.vert" />
     <None Include="src\Resources\Shaders\grid.frag" />

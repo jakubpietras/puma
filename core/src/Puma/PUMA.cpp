@@ -10,7 +10,7 @@ namespace kb
 {
 	PUMA::PUMA(PUMAState& initState)
 	{
-		m_BaseArmMesh = MeshGenerator::Cylinder(0.2f, 1.0f, 30);
+		m_BaseArmMesh = MeshGenerator::ShadedCylinder(0.2f, 1.0f, 4);
 		m_BaseArmModelMtx = {
 			kbm::ScaleMatrix(1.0f, initState.l[0], 1.0f),	// 1. arm
 			kbm::EulerZXZRotation(-90.0f, 0.0f, 0.0f)
@@ -30,14 +30,15 @@ namespace kb
 		UpdateMesh(s);
 	}
 
-	void PUMA::Render(const kbm::Mat4& viewProjection)
+	void PUMA::Render(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos)
 	{
-		auto shader = ShaderLib::Get("Ambient");
+		auto shader = ShaderLib::Get("Phong");
 		for (int i = 0; i < m_ArmsCount; i++)
 		{
 			auto modelMtx = m_ArmModelMtx[i] * m_BaseArmModelMtx[i];
 			shader->SetMat4("u_VP", viewProjection);
-			shader->SetVec3("u_Color", m_ArmColors[i]);
+			shader->SetVec3("u_CameraPos", cameraPos);
+;			shader->SetVec3("u_Color", m_ArmColors[i]);
 			Renderer::Submit(shader, m_BaseArmMesh, GL_TRIANGLES, modelMtx);
 		}
 		shader = ShaderLib::Get("Gizmo");

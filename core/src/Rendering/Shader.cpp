@@ -183,9 +183,9 @@ namespace kb
 		s_Shaders["Ambient"] = std::make_shared<Shader>(
 			"src/Resources/Shaders/ambient.vert",
 			"src/Resources/Shaders/ambient.frag");
-		/*s_Shaders["Flat"] = std::make_shared<Shader>(
-			"src/Resources/Shaders/flat.vert",
-			"src/Resources/Shaders/flat.frag");*/
+		s_Shaders["Phong"] = std::make_shared<Shader>(
+			"src/Resources/Shaders/phong.vert",
+			"src/Resources/Shaders/phong.frag");
 		P_INFO("Shaders initialized.");
 	}
 

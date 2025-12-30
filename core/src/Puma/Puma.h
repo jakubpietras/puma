@@ -10,7 +10,7 @@ namespace kb
 	public:
 		PUMA(PUMAState& initState);
 		void Update(PUMAState& newState);
-		void Render(const kbm::Mat4& viewProjection);
+		void Render(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos);
 
 	private:
 		const std::vector<kbm::Vec3> m_RotationAxes = 

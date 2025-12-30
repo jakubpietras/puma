@@ -16,6 +16,21 @@ namespace kb
 		return mesh;
 	}
 
+	std::shared_ptr<kb::VertexArray> MeshGenerator::ShadedCylinder(float radius, float height, size_t samples)
+	{
+		auto mesh = std::make_shared<VertexArray>();
+		auto vbo = std::make_shared<VertexBuffer>(ShadedCylinderVerts(radius, height, samples));
+		auto ebo = std::make_shared<IndexBuffer>(CylinderIdx(samples));
+		BufferLayout layout({
+			BufferElement(ShaderDataType::Float3, "Pos", false), 
+			BufferElement(ShaderDataType::Float3, "Normal", false)
+			});
+		vbo->SetLayout(layout);
+		mesh->AddVertexBuffer(vbo);
+		mesh->SetIndexBuffer(ebo);
+		return mesh;
+	}
+
 	std::vector<kbm::Vec3> MeshGenerator::CylinderVerts(float radius, float height, size_t samples)
 	{
 		auto pi = std::numbers::pi;
@@ -31,6 +46,29 @@ namespace kb
 				auto y = height * i;
 				auto z = radius * sin(angle);
 				verts.emplace_back(x, y, z);
+			}
+		}
+		return verts;
+	}
+
+	std::vector<VertPosNorm> MeshGenerator::ShadedCylinderVerts(float radius, float height, size_t samples)
+	{
+		auto pi = std::numbers::pi;
+		float sectorStep = 2 * pi / samples;
+		float angle;
+		std::vector<VertPosNorm> verts;
+
+		std::vector<kbm::Vec3> pos;
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < samples; j++)
+			{
+				angle = j * sectorStep;
+				auto x = radius * cos(angle);
+				auto y = height * i;
+				auto z = radius * sin(angle);
+				kbm::Vec3 normal = { cos(angle), 0.f, sin(angle)};
+				verts.push_back(VertPosNorm{ { x,y,z }, normal });
 			}
 		}
 		return verts;

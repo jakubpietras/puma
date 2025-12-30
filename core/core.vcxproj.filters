@@ -173,6 +173,9 @@
     <ClInclude Include="src\Puma\IKSolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\VertexContainers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
@@ -182,8 +185,8 @@
     <None Include="src\Resources\Shaders\grid.vert" />
     <None Include="src\Resources\Shaders\ambient.vert" />
     <None Include="src\Resources\Shaders\ambient.frag" />
-    <None Include="src\Resources\Shaders\flat.vert" />
-    <None Include="src\Resources\Shaders\flat.frag" />
+    <None Include="src\Resources\Shaders\phong.vert" />
+    <None Include="src\Resources\Shaders\phong.frag" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\Resources\Fonts\jbmono.ttf" />
