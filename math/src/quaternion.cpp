@@ -19,10 +19,27 @@ namespace kbm
 			r.w * z - r.x * y + r.y * x + r.z * w
 		};
 	}
+
+	kbm::Quat Quat::operator*(const float scalar) const
+	{
+		return {
+			w * scalar,
+			x * scalar,
+			y * scalar,
+			z * scalar
+		};
+	}
+
 	Quat Quat::operator/(float scalar) const
 	{
 		return { w / scalar, x / scalar, y / scalar, z / scalar };
 	}
+
+	Quat Quat::operator-() const
+	{
+		return { -w, -x, -y, -z };
+	}
+
 	float Norm(const Quat& q)
 	{
 		return std::sqrt(q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z);
@@ -40,6 +57,15 @@ namespace kbm
 		float n = Norm(q);
 		return Conjugate(q) * Quat(1.0f / (n * n));
 	}
+
+	float Dot(const Quat& q, const Quat& s)
+	{
+		return q.w * s.w
+			+ q.x * s.x
+			+ q.y * s.y
+			+ q.z * s.z;
+	}
+
 	Quat FromAxisAngle(float angle_deg, const Vec3& axis_dir)
 	{
 		auto q = Quat();
@@ -107,6 +133,26 @@ namespace kbm
 	{
 		return { q.x, q.y, q.z };
 	}
+
+	// TODO: Kwaternion LERP
+	kbm::Quat Lerp(const Quat& q, const Quat& s, float t)
+	{
+		// t already normalized
+		auto ss = (kbm::Dot(q, s) > 0.f) ? s : -s;
+		return Normalize(q * (1 - t) + ss * t);
+	}
+	// TODO: Kwaternion SLERP
+	kbm::Quat Slerp(const Quat& q, const Quat& s, float t)
+	{
+		// t already normalized
+		auto ss = (kbm::Dot(q, s) > 0.f) ? s : -s;
+		auto cos_a = kbm::Dot(q, ss);
+		auto a = acos(cos_a);
+		auto qt = sin((1 - t) * a) / sin(a);
+		auto st = sin(t * a) / sin(a);
+		return q * qt + ss * st;
+	}
+
 	Mat4 ToMat4(const Quat& q)
 	{
 		float w = q.w, x = q.x, y = q.y, z = q.z;

@@ -16,12 +16,15 @@ namespace kb
 		void OnStateChange(AppState& s);
 	private:
 		AppState& m_State;
-		PUMAState m_PumaState, m_PumaPrevState;
-		PUMA m_PUMA;
+		PUMAState m_PUMAStartState, m_PUMAEndState;
+		PUMA m_PUMAA, m_PUMAB; // A - interpolated params, B - interpolated effector
 		kbm::Mat4 m_EffectorEndPosModelMtx;
 
 		void ProcessAnimation(float dt);
 		void RenderGrid(const kbm::Mat4& viewProjection);
 		void RenderGizmo(const kbm::Mat4& model, const kbm::Mat4& viewProjection);
+
+		PUMAState InterpolateParameters(PUMAState start, PUMAState end, float t);
+		PUMAState InterpolateEffector(PUMAParams params, float t);
 	};
 }

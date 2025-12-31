@@ -9,6 +9,7 @@
 namespace kb
 {
 	PUMA::PUMA(PUMAState& initState)
+		: m_CurrentState(initState)
 	{
 		m_BaseArmMesh = MeshGenerator::ShadedCylinder(0.2f, 1.0f, 4);
 		m_BaseArmModelMtx = {
@@ -26,6 +27,7 @@ namespace kb
 
 	void PUMA::Update(PUMAState& s)
 	{
+		m_CurrentState = s;
 		UpdateConfiguration(s);
 		UpdateMesh(s);
 	}
@@ -47,6 +49,16 @@ namespace kb
 		RenderCommand::SetLineThickness(10.0f);
 		Renderer::SubmitProcedural(shader, 6, GL_LINES);
 		RenderCommand::SetLineThickness(1.0f);
+	}
+
+	void PUMA::Reset(PUMAState& state)
+	{
+		Update(state);
+	}
+
+	kb::PUMAState PUMA::GetCurrentState() const
+	{
+		return m_CurrentState;
 	}
 
 	void PUMA::UpdateConfiguration(PUMAState& s)

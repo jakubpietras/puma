@@ -38,6 +38,8 @@ namespace kbm
 	Quat Conjugate(const Quat& q);
 	Quat Inverse(const Quat& q);
 
+	float Dot(const Quat& q, const Quat& s);
+
 	// construction helpers
 	Quat FromAxisAngle(float angle, const Vec3& axis_dir);	// axis angle
 	Quat RPYToQuat(const Vec3& angles_deg);
@@ -50,4 +52,8 @@ namespace kbm
 	Vec4 Rotate(const Vec4& v, const Quat& q); // Rotates
 	Quat Vec3ToQuat(const Vec3& v);	// c-tor
 	Vec3 QuatToVec3(const Quat& q);	// ToEulerXYZ
+
+	// interpolation
+	Quat Lerp(const Quat& q, const Quat& s, float t);
+	Quat Slerp(const Quat& q, const Quat& s, float t);
 }
