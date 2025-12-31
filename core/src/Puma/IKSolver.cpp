@@ -6,16 +6,9 @@ namespace kb
 
 	kb::PUMAState IKSolver::Compute(kbm::Vec3 pos, kbm::Mat4 rotation, std::vector<float> armLengths)
 	{
-		// ======== debug
-		PUMAState debug;
-		debug.a = { 30.0f, 0.0f, 40.0f, 30.0f, 10.0f };
-		debug.p = { kbm::Vec3{0,0,0},kbm::Vec3{0,2,0},kbm::Vec3{3,2,0},kbm::Vec3{3,1,0},kbm::Vec3{3.5,1,0} };
-		debug.l = { armLengths[0], 1.0f, armLengths[1], armLengths[2] };
-		// ==============
-
 		PUMAState s;
 		auto x5 = kbm::Vec3(rotation * kbm::Vec4{ 1.0f, 0.0f, 0.0f, 0.f });
-		auto z5 = kbm::Vec3(rotation * kbm::Vec4{ 0.0f, 0.0f, 1.0f, 0.f });
+		auto y5 = kbm::Vec3(rotation * kbm::Vec4{ 0.0f, 1.0f, 0.0f, 0.f });
 
 		auto p5 = pos;
 		auto p0 = kbm::Vec3{ 0.f, 0.f, 0.f };
@@ -30,12 +23,12 @@ namespace kb
 
 		// angles
 		auto halfPi = static_cast<float>(std::numbers::pi / 2);
-		auto a1 = static_cast<float>(atan2(p4.z, p4.x));
+		auto a1 = -static_cast<float>(atan2(p4.z, p4.x));
 		auto a2 = SignedAngle(p2 - p0, p3 - p2, n024);
 		auto q2 = kbm::Length(p3 - p2);
-		auto a3 = SignedAngle(p3 - p2, p4 - p3, n024);
-		auto a4 = -(SignedAngle(n024, p5-p4, p4-p3) + halfPi);
-		auto a5 = SignedAngle(p3 - p4, z5, p5-p4);
+		auto a3 = SignedAngle(p3 - p2, p3 - p4, n024);
+		auto a4 = SignedAngle(n024, p5-p4, p3-p4) - halfPi;
+		auto a5 = SignedAngle(p3 - p4, y5, p5-p4);
 
 		s.a = { kbm::Degrees(a1), kbm::Degrees(a2), kbm::Degrees(a3), kbm::Degrees(a4), kbm::Degrees(a5) };
 		s.l = { armLengths[0], q2, armLengths[1], armLengths[2] };

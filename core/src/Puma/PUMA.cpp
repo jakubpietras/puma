@@ -71,12 +71,11 @@ namespace kb
 			* kbm::TranslationMatrix(0.0f, s.l[1], 0.0f)
 			* kbm::RotationZ(s.a[2]);
 		m_ArmModelMtx[3] = m_ArmModelMtx[2]
-			* kbm::TranslationMatrix(0.0f, s.l[2], 0.0f)
+			* kbm::TranslationMatrix(0.0f, -s.l[2], 0.0f)
 			* kbm::RotationY(s.a[3]);
 		m_EffectorModelMtx = m_ArmModelMtx[3]
-			* kbm::RotationZ(90.0f)
-			* kbm::TranslationMatrix(0.0f, s.l[3] + 0.01f, 0.0f)
-			* kbm::RotationY(s.a[4])
+			* kbm::TranslationMatrix(s.l[3] + 0.01f, 0.0f, 0.0f)
+			* kbm::RotationX(s.a[4])
 			* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f);
 	}
 
@@ -85,8 +84,8 @@ namespace kb
 		m_BaseArmModelMtx = {
 			kbm::ScaleMatrix(1.0f, s.l[0], 1.0f),	// 1. arm
 			kbm::ScaleMatrix(1.0f, s.l[1], 1.0f),	// 2. arm
-			kbm::ScaleMatrix(1.0f, s.l[2], 1.0f),	// 3. arm
-			kbm::EulerZXZRotation(90.0f, 0.f, 0.f)
+			kbm::ScaleMatrix(1.0f, -s.l[2], 1.0f),	// 3. arm
+			kbm::EulerZXZRotation(-90.0f, 0.f, 0.f)
 			* kbm::ScaleMatrix(1.0f, s.l[3], 1.0f)	// 4. arm
 		};
 	}
