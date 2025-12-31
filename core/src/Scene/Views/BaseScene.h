@@ -13,6 +13,9 @@ namespace kb
 
 		void OnUpdate(float dt) override;
 		void OnRender(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos = {}) override;
+		void RenderA(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos = {});
+		void RenderB(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos = {});
+
 		void OnStateChange(AppState& s);
 	private:
 		AppState& m_State;
@@ -26,5 +29,7 @@ namespace kb
 
 		PUMAState InterpolateParameters(PUMAState start, PUMAState end, float t);
 		PUMAState InterpolateEffector(PUMAParams params, float t);
+		float LerpEuler(float start, float end, float t);
+		float ClampEuler(float angle);
 	};
 }

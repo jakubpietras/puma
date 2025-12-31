@@ -31,7 +31,8 @@ namespace kb
 		std::vector<std::shared_ptr<ViewportPanel>> m_ViewportPanels;
 
 		void OnEvent(const SDL_Event& e);
-		void RenderScene(std::shared_ptr<ViewportPanel>& viewport);
+		void RenderSceneA(std::shared_ptr<ViewportPanel>& viewport);
+		void RenderSceneB(std::shared_ptr<ViewportPanel>& viewport);
 		void ProcessStateChanges();
 	};
 }

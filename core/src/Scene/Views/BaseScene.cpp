@@ -23,9 +23,7 @@ namespace kb
 		m_PUMAA(m_PUMAStartState),
 		m_PUMAB(m_PUMAStartState),
 		m_EffectorEndPosModelMtx(kbm::TranslationMatrix(appstate.Params.EffEndPos)* QuatRotation(appstate.Params.QuatEnd)* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f))
-	{
-		
-	}
+	{ }
 
 	void BaseScene::OnUpdate(float dt)
 	{
@@ -35,7 +33,19 @@ namespace kb
 	void BaseScene::OnRender(const m::Mat4& viewProjection, const kbm::Vec3& cameraPos)
 	{
 		RenderGrid(viewProjection);
-		m_PUMAA.Render(viewProjection, {1.0f, 5.0f, 1.0f});
+	}
+
+	void BaseScene::RenderA(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos /*= {}*/)
+	{
+		RenderGrid(viewProjection);
+		m_PUMAA.Render(viewProjection, { 1.0f, 5.0f, 1.0f });
+		RenderGizmo(m_EffectorEndPosModelMtx, viewProjection);
+	}
+
+	void BaseScene::RenderB(const kbm::Mat4& viewProjection, const kbm::Vec3& cameraPos /*= {}*/)
+	{
+		RenderGrid(viewProjection);
+		m_PUMAB.Render(viewProjection, { 1.0f, 5.0f, 1.0f });
 		RenderGizmo(m_EffectorEndPosModelMtx, viewProjection);
 	}
 
@@ -47,7 +57,7 @@ namespace kb
 		if (s.ShouldResetPUMA)
 		{
 			m_PUMAA.Reset(m_PUMAStartState);
-			m_PUMAB.Reset(m_PUMAEndState);
+			m_PUMAB.Reset(m_PUMAStartState);
 			s.ShouldResetPUMA = false;
 		}
 		if (df.EndPos || df.EulerEnd || df.QuatEnd)
@@ -117,11 +127,11 @@ namespace kb
 	{
 		PUMAState s;
 		s.a = {
-			kbm::Lerp(start.a[0], end.a[0], t),
-			kbm::Lerp(start.a[1], end.a[1], t),
-			kbm::Lerp(start.a[2], end.a[2], t),
-			kbm::Lerp(start.a[3], end.a[3], t),
-			kbm::Lerp(start.a[4], end.a[4], t)
+			LerpEuler(start.a[0], end.a[0], t),
+			LerpEuler(start.a[1], end.a[1], t),
+			LerpEuler(start.a[2], end.a[2], t),
+			LerpEuler(start.a[3], end.a[3], t),
+			LerpEuler(start.a[4], end.a[4], t)
 		};
 		s.l = {
 			start.l[0],
@@ -144,6 +154,19 @@ namespace kb
 		auto ep = kbm::Lerp(params.EffStartPos, params.EffEndPos, t);
 		auto er = kbm::Slerp(params.QuatStart, params.QuatEnd, t);
 		return IKSolver::Compute(ep, kbm::QuatRotation(er), { params.Length1, params.Length3, params.Length4 });
+	}
+
+	float BaseScene::LerpEuler(float start, float end, float t)
+	{
+		auto diff = end - start;
+		return start + ClampEuler(diff) * t;
+	}
+
+	float BaseScene::ClampEuler(float angle)
+	{
+		angle = std::fmod(angle + 180.0f, 360.0f);
+		if (angle < 0.0f) angle += 360.0f;
+		return angle - 180.0f;
 	}
 
 }

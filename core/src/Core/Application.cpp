@@ -104,10 +104,9 @@ namespace kb
 
 			// RENDER
 			m_UIController.BeginFrame();
-			for (auto& vp : m_ViewportPanels)
-			{
-				RenderScene(vp);
-			}
+			RenderSceneA(m_ViewportPanels[0]);
+			RenderSceneB(m_ViewportPanels[1]);
+
 			m_UIController.RenderPanels();
 			m_UIController.EndFrame();
 			m_Window.SwapBuffers();
@@ -138,14 +137,26 @@ namespace kb
 
 	}
 
-	void Application::RenderScene(std::shared_ptr<ViewportPanel>& viewport)
+	void Application::RenderSceneA(std::shared_ptr<ViewportPanel>& viewport)
 	{
 		viewport->Framebuffer()->Bind();
 
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
 		auto& cam = viewport->CamController();
-		m_Scene->OnRender(cam->GetCamera()->GetVP(), cam->GetPosition());
+		m_Scene->RenderA(cam->GetCamera()->GetVP(), cam->GetPosition());
+
+		viewport->Framebuffer()->Unbind();
+	}
+
+	void Application::RenderSceneB(std::shared_ptr<ViewportPanel>& viewport)
+	{
+		viewport->Framebuffer()->Bind();
+
+		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
+		RenderCommand::Clear();
+		auto& cam = viewport->CamController();
+		m_Scene->RenderB(cam->GetCamera()->GetVP(), cam->GetPosition());
 
 		viewport->Framebuffer()->Unbind();
 	}
