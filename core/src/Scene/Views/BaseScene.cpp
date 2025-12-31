@@ -14,11 +14,11 @@ namespace kb
 		m_PumaState(
 			IKSolver::Compute(
 				appstate.Params.EffStartPos, 
-				EulerZXZRotation(appstate.Params.EulerStart), 
+				QuatRotation(appstate.Params.QuatStart), 
 				{appstate.Params.Length1, appstate.Params.Length3, appstate.Params.Length4})),
 		m_PumaPrevState(m_PumaState),
 		m_PUMA(m_PumaState),
-		m_EffectorEndPosModelMtx(kbm::TranslationMatrix(appstate.Params.EffEndPos)* kbm::EulerZXZRotation(appstate.Params.EulerEnd)* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f))
+		m_EffectorEndPosModelMtx(kbm::TranslationMatrix(appstate.Params.EffEndPos)* QuatRotation(appstate.Params.QuatEnd)* kbm::ScaleMatrix(0.3f, 0.3f, 0.3f))
 	{ }
 
 	void BaseScene::OnUpdate(float dt)
@@ -33,16 +33,23 @@ namespace kb
 		RenderGizmo(m_EffectorEndPosModelMtx, viewProjection);
 	}
 
-	void BaseScene::OnStateChange(PUMAParams& p, PUMADirtyFlag& df)
+	void BaseScene::OnStateChange(AppState& s)
 	{
+		auto& p = s.Params;
+		auto& df = s.DirtyPuma;
+
+		if (s.ShouldResetPUMA)
+		{
+			// todo: reset PUMA
+		}
 		if (df.EndPos || df.EulerEnd || df.QuatEnd)
 		{
 			// update end effector
-			m_EffectorEndPosModelMtx = kbm::TranslationMatrix(p.EffEndPos) * kbm::EulerZXZRotation(p.EulerEnd) * kbm::ScaleMatrix(0.3f, 0.3f, 0.3f);
+			m_EffectorEndPosModelMtx = kbm::TranslationMatrix(p.EffEndPos) * kbm::QuatRotation(p.QuatEnd) * kbm::ScaleMatrix(0.3f, 0.3f, 0.3f);
 		}
 		if (df.Check())
 		{
-			auto newState = IKSolver::Compute(p.EffStartPos, EulerZXZRotation(p.EulerStart), { p.Length1, p.Length3, p.Length4 });
+			auto newState = IKSolver::Compute(p.EffStartPos, kbm::QuatRotation(p.QuatStart), { p.Length1, p.Length3, p.Length4 });
 			m_PUMA.Update(newState);
 			df.Clear();
 		}

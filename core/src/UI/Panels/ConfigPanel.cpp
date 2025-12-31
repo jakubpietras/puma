@@ -45,10 +45,16 @@ namespace kb
 			ImGui::TextWrapped("Set effector's local rotation in quaternions.");
 			ImGui::SeparatorText("Start");
 			if (kb::UIWidget::DragQuat("qs", m_State.Params.QuatStart))
+			{
+				m_State.Params.EulerStart = kbm::QuatToEulerZXZ(kbm::Normalize(m_State.Params.QuatStart));
 				m_State.DirtyPuma.QuatStart = true;
+			}
 			ImGui::SeparatorText("End");
 			if (kb::UIWidget::DragQuat("qe", m_State.Params.QuatEnd))
+			{
+				m_State.Params.EulerEnd = kbm::QuatToEulerZXZ(kbm::Normalize(m_State.Params.QuatEnd));
 				m_State.DirtyPuma.QuatEnd = true;
+			}
 		}
 		ImGui::End();
 	}
@@ -61,10 +67,16 @@ namespace kb
 			ImGui::TextWrapped("Set effector's rotation in Euler (ZXZ) angles.");
 			ImGui::SeparatorText("Start");
 			if (kb::UIWidget::DragVec3("s", m_State.Params.EulerStart, { "alpha", "beta", "gamma" }, 0.0f, 360.f))
+			{
+				m_State.Params.QuatStart = kbm::EulerZXZToQuat(m_State.Params.EulerStart);
 				m_State.DirtyPuma.EulerStart = true;
+			}
 			ImGui::SeparatorText("End");
 			if (kb::UIWidget::DragVec3("e", m_State.Params.EulerEnd, { "alpha", "beta", "gamma" }, 0.0f, 360.0f))
+			{
+				m_State.Params.QuatEnd = kbm::EulerZXZToQuat(m_State.Params.EulerEnd);
 				m_State.DirtyPuma.EulerEnd = true;
+			}
 		}
 		ImGui::End();
 	}
@@ -107,7 +119,7 @@ namespace kb
 			kb::ScopedDisable disable(m_State.AnimationStarted);
 			ImGui::Text("Duration: ");
 			ImGui::SameLine();
-			ImGui::SetNextItemWidth(80.0f);
+			ImGui::SetNextItemWidth(120.0f);
 			if (ImGui::DragFloat("##Duration", &m_State.AnimationTotalTime, 0.1f, 0.1f, 60.0f))
 			{
 				m_State.AnimationTotalTimeChanged = true;

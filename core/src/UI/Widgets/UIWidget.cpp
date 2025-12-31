@@ -52,21 +52,21 @@ namespace kb
 		TextColored(fmt::format("{}: ", labels[0]), ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
-		if (ImGui::DragFloat(fmt::format("##{}{}", label, "px").c_str(), &value.x, 0.1f, 0.0f))
+		if (ImGui::DragFloat(fmt::format("##{}{}", label, "px").c_str(), &value.x, 0.1f, min, max))
 			committed = true;
 		ImGui::PopItemWidth();
 
 		TextColored(fmt::format("{}: ", labels[1]), ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
-		if (ImGui::DragFloat(fmt::format("##{}{}", label, "py").c_str(), &value.y, 0.1f, 0.0f))
+		if (ImGui::DragFloat(fmt::format("##{}{}", label, "py").c_str(), &value.y, 0.1f, min, max))
 			committed = true;
 		ImGui::PopItemWidth();
 
 		TextColored(fmt::format("{}: ", labels[2]), ImVec4(0.1f, 0.25f, 0.8f, 1.0f));
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1);
-		if (ImGui::DragFloat(fmt::format("##{}{}", label, "pz").c_str(), &value.z, 0.1f, 0.0f))
+		if (ImGui::DragFloat(fmt::format("##{}{}", label, "pz").c_str(), &value.z, 0.1f, min, max))
 			committed = true;
 		ImGui::PopItemWidth();
 
