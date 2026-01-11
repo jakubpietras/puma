@@ -144,7 +144,7 @@ namespace kb
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
 		auto& cam = viewport->CamController();
-		m_Scene->RenderA(cam->GetCamera()->GetVP(), cam->GetPosition());
+		m_Scene->RenderA(cam->GetCamera()->GetVP(), -cam->GetPosition());
 
 		viewport->Framebuffer()->Unbind();
 	}
@@ -156,7 +156,7 @@ namespace kb
 		RenderCommand::SetClearColor(kbm::Vec4(0.18f, 0.18f, 0.24f, 1.0f));
 		RenderCommand::Clear();
 		auto& cam = viewport->CamController();
-		m_Scene->RenderB(cam->GetCamera()->GetVP(), cam->GetPosition());
+		m_Scene->RenderB(cam->GetCamera()->GetVP(), -cam->GetPosition());
 
 		viewport->Framebuffer()->Unbind();
 	}

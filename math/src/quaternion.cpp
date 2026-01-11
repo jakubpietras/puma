@@ -147,9 +147,16 @@ namespace kbm
 		// t already normalized
 		auto ss = (kbm::Dot(q, s) > 0.f) ? s : -s;
 		auto cos_a = kbm::Dot(q, ss);
+		if (cos_a > 0.995f)	// Lerp if angle very small
+			return Lerp(q, ss, t);
+
+		if (cos_a > 1.0f) cos_a = 1.0f;
+		if (cos_a < -1.0f) cos_a = -1.0f;
+
 		auto a = acos(cos_a);
-		auto qt = sin((1 - t) * a) / sin(a);
-		auto st = sin(t * a) / sin(a);
+		auto sin_a = sin(a);
+		auto qt = sin((1 - t) * a) / sin_a;
+		auto st = sin(t * a) / sin_a;
 		return q * qt + ss * st;
 	}
 

@@ -3,6 +3,7 @@
 #include "Core/AppState.h"
 #include "Puma/PUMA.h"
 #include "Puma/PUMAStructs.h"
+#include <optional>
 
 namespace kb
 {
@@ -28,7 +29,10 @@ namespace kb
 		void RenderGizmo(const kbm::Mat4& model, const kbm::Mat4& viewProjection);
 
 		PUMAState InterpolateParameters(PUMAState start, PUMAState end, float t);
-		PUMAState InterpolateEffector(PUMAParams params, float t);
+		PUMAState InterpolateEffector(PUMAParams params, std::optional<PUMAState> prevState, float t);
+		void AnimatePUMAParamInterpolation(float t);
+		void AnimatePUMAEffectorInterpolation(float t);
+
 		float LerpEuler(float start, float end, float t);
 		float ClampEuler(float angle);
 	};

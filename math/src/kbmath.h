@@ -1,5 +1,7 @@
 #pragma once
 
+#include <numbers>
+
 // types
 #include "vector_types.h"
 #include "matrix_types.h"

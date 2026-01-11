@@ -13,12 +13,12 @@ namespace kb
 		static void SetViewport(int x, int y, uint32_t width, uint32_t height);
 		static void SetClearColor(const kbm::Vec4 color);
 		static void Clear();
-		
+
 		static void ToggleDepthTest(bool enabled);
 		static void ToggleBlendColor(bool enabled);
 		static void SetDepthMask(uint32_t flag);
 		static void BindTexture(std::shared_ptr<Texture> texture, size_t slot);
-		
+
 		static void SetPointSize(float size = 1.);
 		static void SetLineThickness(float width = 1.);
 
@@ -28,4 +28,3 @@ namespace kb
 			uint32_t instanceCount = 1);
 	};
 }
-
