@@ -9,7 +9,6 @@ namespace kb
 	{
 		PUMAState s;
 		auto x5 = kbm::Vec3(rotation * kbm::Vec4{ 1.0f, 0.0f, 0.0f, 0.f });
-		auto y5 = kbm::Vec3(rotation * kbm::Vec4{ 0.0f, 1.0f, 0.0f, 0.f });
 
 		auto p5 = pos;
 		auto p0 = kbm::Vec3{ 0.f, 0.f, 0.f };
@@ -28,14 +27,17 @@ namespace kb
 			}
 			else
 			{
-				// first frame - "arbitrary" plane
-				n024 = kbm::Normalize(kbm::Cross(p5 - p4, p0 - p4));
-				// won't be 0 because p5-p4 and p3-p4 is always 90 deg.
+				// first/last frame
+				n024 = kbm::Cross(p5 - p4, p0 - p4);
+				if (kbm::Length(n024) < 1e-6) // p0/1/2/4/5 all in one line - choosing any vector
+					n024 = kbm::Vec3(0.0f, 0.0f, 1.0f);	
+				else
+					n024 = kbm::Normalize(n024);
 			}
 		}
 		else
 			n024 = kbm::Normalize(n024);
-
+		
 		auto y4 = kbm::Cross(n024, x5);
 		if (kbm::Length(y4) < 1e-6) // edge case: cross product == 0
 			y4 = kbm::Normalize(p2 - p4);	// p4-p3 and p2-p3 lie on the same line
@@ -53,13 +55,13 @@ namespace kb
 				? p32 : p31;
 		}
 		else
-			p3 = p4 + armLengths[1] * y4;
+			p3 = p4 + armLengths[1] * y4;	// without previous state always choose the "up" way
 		
 		// angles
 		auto halfPi = static_cast<float>(std::numbers::pi / 2);
 		float a1;
 		float p4L = p4.x * p4.x + p4.z * p4.z;
-		if (p4L < 1e-12f)
+		if (p4L < 1e-12)
 		{
 			if (prevState.has_value())
 				a1 = kbm::Radians(prevState->a[0]);

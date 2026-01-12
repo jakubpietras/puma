@@ -11,7 +11,7 @@ namespace kb
 	PUMA::PUMA(PUMAState& initState)
 		: m_CurrentState(initState)
 	{
-		m_BaseArmMesh = MeshGenerator::ShadedCylinder(0.2f, 1.0f, 4);
+		m_BaseArmMesh = MeshGenerator::ShadedCylinder(0.2f, 1.0f, 40);
 		m_BaseArmModelMtx = {
 			kbm::ScaleMatrix(1.0f, initState.l[0], 1.0f),	// 1. arm
 			kbm::EulerZXZRotation(-90.0f, 0.0f, 0.0f)
