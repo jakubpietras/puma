@@ -63,6 +63,7 @@ namespace kb
 
 	void PUMA::UpdateConfiguration(PUMAState& s)
 	{
+		// TODO: PUMA arms model matrices (after computing IK)
 		m_ArmModelMtx[0] = kbm::RotationY(s.a[0]);
 		m_ArmModelMtx[1] = m_ArmModelMtx[0]
 			* kbm::TranslationMatrix(0.0f, s.l[0], 0.0f)
@@ -81,6 +82,7 @@ namespace kb
 
 	void PUMA::UpdateMesh(PUMAState& s)
 	{
+		// TODO: PUMA arm mesh base transforms
 		m_BaseArmModelMtx = {
 			kbm::ScaleMatrix(1.0f, s.l[0], 1.0f),	// 1. arm
 			kbm::ScaleMatrix(1.0f, s.l[1], 1.0f),	// 2. arm

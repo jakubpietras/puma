@@ -4,11 +4,12 @@
 
 namespace kb
 {
-
+	// TODO: PUMA Inverse Kinematics
 	kb::PUMAState IKSolver::Compute(kbm::Vec3 pos, kbm::Mat4 rotation, std::vector<float> armLengths, std::optional<kb::PUMAState> prevState)
 	{
 		PUMAState s;
 		auto x5 = kbm::Vec3(rotation * kbm::Vec4{ 1.0f, 0.0f, 0.0f, 0.f });
+		auto y5 = kbm::Vec3(rotation * kbm::Vec4{ 0.0f, 1.0f, 0.0f, 0.f });
 
 		auto p5 = pos;
 		auto p0 = kbm::Vec3{ 0.f, 0.f, 0.f };
@@ -40,7 +41,7 @@ namespace kb
 		
 		auto y4 = kbm::Cross(n024, x5);
 		if (kbm::Length(y4) < 1e-6) // edge case: cross product == 0
-			y4 = kbm::Normalize(p2 - p4);	// p4-p3 and p2-p3 lie on the same line
+			y4 = kbm::Normalize(p2 - p4);	// p4-p3 and p2-p3 lie on the same line [[circle around p4]]
 		else
 			y4 = kbm::Normalize(y4);
 
@@ -87,6 +88,7 @@ namespace kb
 
 	float IKSolver::SignedAngle(kbm::Vec3 a, kbm::Vec3 b, kbm::Vec3 rotAxis)
 	{
+		// https://stackoverflow.com/questions/5188561/signed-angle-between-two-3d-vectors-with-same-origin-within-the-same-plane
 		return std::atan2(
 			kbm::Dot(kbm::Cross(a, b), kbm::Normalize(rotAxis)),
 			kbm::Dot(a, b)

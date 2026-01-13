@@ -151,6 +151,7 @@ namespace kb
 		return IKSolver::Compute(ep, kbm::QuatRotation(er), { params.Length1, params.Length3, params.Length4 }, prevState);
 	}
 
+	// TODO: Internal interpolation
 	void BaseScene::AnimatePUMAParamInterpolation(float t)
 	{
 		auto prevA = m_PUMAA.GetCurrentState();
@@ -158,6 +159,7 @@ namespace kb
 		m_PUMAA.Update(newA);
 	}
 
+	// TODO: Effector interpolation (shortest path)
 	void BaseScene::AnimatePUMAEffectorInterpolation(float t)
 	{
 		auto prevB = m_PUMAB.GetCurrentState();
@@ -165,6 +167,7 @@ namespace kb
 		m_PUMAB.Update(newB);
 	}
 
+	// TODO: Euler angles interpolation
 	float BaseScene::LerpEuler(float start, float end, float t)
 	{
 		auto diff = end - start;
